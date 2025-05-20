@@ -1,0 +1,6 @@
+module Pods_myhealthappclean {
+  umbrella header "Pods-myhealthappclean-umbrella.h"
+
+  export *
+  module * { export * }
+}

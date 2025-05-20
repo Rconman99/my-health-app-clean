@@ -1,0 +1,194 @@
+{
+  "Conditioning": [
+    {
+      "name": "Assault Bike",
+      "emoji": "🚴‍♂️",
+      "level": "All",
+      "muscleGroup": "Full Body",
+      "equipment": "Assault Bike",
+      "type": "Machine",
+      "category": "Cardio",
+      "tags": []
+    },
+    {
+      "name": "Jump Rope",
+      "emoji": "🔁",
+      "level": "All",
+      "muscleGroup": "Full Body",
+      "equipment": "Jump Rope",
+      "type": "Bodyweight",
+      "category": "Cardio",
+      "tags": []
+    },
+    {
+      "name": "Rowing",
+      "emoji": "🚣",
+      "level": "All",
+      "muscleGroup": "Back/Legs",
+      "equipment": "Rowing Machine",
+      "type": "Machine",
+      "category": "Cardio",
+      "tags": []
+    }
+  ],
+  "Functional": [
+    {
+      "name": "Burpee",
+      "emoji": "🔥",
+      "level": "Intermediate",
+      "muscleGroup": "Full Body",
+      "equipment": "None",
+      "type": "Bodyweight",
+      "category": "Functional",
+      "tags": []
+    },
+    {
+      "name": "Kettlebell Swing",
+      "emoji": "🏋️‍♀️",
+      "level": "Intermediate",
+      "muscleGroup": "Glutes",
+      "equipment": "Kettlebell",
+      "type": "Weighted",
+      "category": "Functional",
+      "tags": []
+    }
+  ],
+  "CrossFit": [
+    {
+      "name": "Wall Ball",
+      "emoji": "🏐",
+      "level": "Intermediate",
+      "muscleGroup": "Legs/Shoulders",
+      "equipment": "Medicine Ball",
+      "type": "Weighted",
+      "category": "CrossFit",
+      "tags": []
+    }
+  ],
+  "Mobility": [
+    {
+      "name": "Cat-Cow",
+      "emoji": "🐱🐮",
+      "level": "All",
+      "muscleGroup": "Spine",
+      "equipment": "None",
+      "type": "Stretch",
+      "category": "Mobility",
+      "tags": []
+    },
+    {
+      "name": "World’s Greatest Stretch",
+      "emoji": "🧘‍♂️",
+      "level": "All",
+      "muscleGroup": "Full Body",
+      "equipment": "None",
+      "type": "Stretch",
+      "category": "Mobility",
+      "tags": []
+    }
+  ],
+  "Recovery": [
+    {
+      "name": "Foam Roll Quads",
+      "emoji": "🧽",
+      "level": "All",
+      "muscleGroup": "Quads",
+      "equipment": "Foam Roller",
+      "type": "Roller",
+      "category": "Recovery",
+      "tags": []
+    },
+    {
+      "name": "Lying Hamstring Stretch",
+      "emoji": "🧘‍♀️",
+      "level": "All",
+      "muscleGroup": "Hamstrings",
+      "equipment": "Band (Optional)",
+      "type": "Stretch",
+      "category": "Recovery",
+      "tags": []
+    }
+  ],
+  "Strength": [
+    {
+      "name": "Air Squat",
+      "emoji": "🏋️",
+      "level": "Beginner",
+      "muscleGroup": "Legs",
+      "equipment": "None",
+      "type": "Bodyweight",
+      "category": "Strength",
+      "tags": []
+    },
+    {
+      "name": "Barbell Bench Press",
+      "emoji": "🏋️‍♂️",
+      "level": "Intermediate",
+      "muscleGroup": "Chest",
+      "equipment": "Barbell",
+      "type": "Weighted",
+      "category": "Strength",
+      "tags": []
+    },
+    {
+      "name": "Deadlift",
+      "emoji": "⚰️",
+      "level": "Advanced",
+      "muscleGroup": "Back",
+      "equipment": "Barbell",
+      "type": "Weighted",
+      "category": "Strength",
+      "tags": []
+    },
+    {
+      "name": "Dumbbell Shoulder Press",
+      "emoji": "🏋️",
+      "level": "Intermediate",
+      "muscleGroup": "Shoulders",
+      "equipment": "Dumbbells",
+      "type": "Weighted",
+      "category": "Strength",
+      "tags": []
+    },
+    {
+      "name": "Goblet Squat",
+      "emoji": "🥇",
+      "level": "Beginner",
+      "muscleGroup": "Legs",
+      "equipment": "Dumbbell/Kettlebell",
+      "type": "Weighted",
+      "category": "Strength",
+      "tags": []
+    },
+    {
+      "name": "Plank",
+      "emoji": "🪵",
+      "level": "Beginner",
+      "muscleGroup": "Core",
+      "equipment": "None",
+      "type": "Bodyweight",
+      "category": "Core",
+      "tags": []
+    },
+    {
+      "name": "Pull-Up",
+      "emoji": "🧗",
+      "level": "Intermediate",
+      "muscleGroup": "Back",
+      "equipment": "Pull-Up Bar",
+      "type": "Bodyweight",
+      "category": "Strength",
+      "tags": []
+    },
+    {
+      "name": "Push-Up",
+      "emoji": "💪",
+      "level": "Beginner",
+      "muscleGroup": "Chest",
+      "equipment": "None",
+      "type": "Bodyweight",
+      "category": "Strength",
+      "tags": []
+    }
+  ]
+}
