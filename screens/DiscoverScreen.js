@@ -8,47 +8,19 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import exerciseLibrary from '../utils/exerciselibrary'; // lowercase 'l'
+import exerciseLibrary from '../utils/exerciselibrary'; // keep lowercase 'l'
 
-const categories = [
-  'All',
-  'Strength',
-  'Mobility',
-  'Functional',
-  'CrossFit',
-  'Cardio',
-  'Recovery',
-];
-
-const muscleGroups = [
-  'All',
-  'Chest',
-  'Back',
-  'Legs',
-  'Shoulders',
-  'Arms',
-  'Core',
-  'Full Body',
-  'Glutes',
-  'Quads',
-  'Hamstrings',
-];
-
-const fitnessLevels = ['All', 'Beginner', 'Intermediate', 'Advanced', 'Athlete'];
-
-const equipmentOptions = [
-  'All',
-  'None',
-  'Barbell',
-  'Dumbbells',
-  'Kettlebell',
-  'Machine',
-  'Resistance Band',
-  'Medicine Ball',
-  'Foam Roller',
-  'Pull-Up Bar',
-  'Jump Rope',
-];
+const FILTERS = {
+  categories: ['All', 'Strength', 'Mobility', 'Functional', 'CrossFit', 'Cardio', 'Recovery'],
+  muscleGroups: [
+    'All', 'Chest', 'Back', 'Legs', 'Shoulders', 'Arms', 'Core', 'Full Body', 'Glutes', 'Quads', 'Hamstrings',
+  ],
+  fitnessLevels: ['All', 'Beginner', 'Intermediate', 'Advanced', 'Athlete'],
+  equipment: [
+    'All', 'None', 'Barbell', 'Dumbbells', 'Kettlebell', 'Machine', 'Resistance Band',
+    'Medicine Ball', 'Foam Roller', 'Pull-Up Bar', 'Jump Rope',
+  ],
+};
 
 export default function DiscoverScreen({ navigation, route }) {
   const [search, setSearch] = useState('');
@@ -58,30 +30,19 @@ export default function DiscoverScreen({ navigation, route }) {
   const [selectedEquipment, setSelectedEquipment] = useState('All');
 
   const filteredExercises = useMemo(() => {
-    const lowerSearch = search.toLowerCase();
-
+    const lowerSearch = search.toLowerCase().trim();
     return exerciseLibrary.filter((exercise) => {
-      const matchesCategory =
-        selectedCategory === 'All' || exercise.category === selectedCategory;
-      const matchesMuscle =
-        selectedMuscle === 'All' || exercise.muscleGroup === selectedMuscle;
-      const matchesLevel =
-        selectedLevel === 'All' || exercise.fitnessLevel === selectedLevel;
-      const matchesEquipment =
-        selectedEquipment === 'All' || exercise.equipment === selectedEquipment;
-
-      const matchesSearch =
-        exercise.name.toLowerCase().includes(lowerSearch) ||
-        (exercise.emoji && exercise.emoji.toLowerCase().includes(lowerSearch)) ||
-        (exercise.tags && exercise.tags.some((tag) => tag.toLowerCase().includes(lowerSearch)));
-
-      return (
-        matchesCategory &&
-        matchesMuscle &&
-        matchesLevel &&
-        matchesEquipment &&
-        matchesSearch
-      );
+      const matches = [
+        selectedCategory === 'All' || exercise.category === selectedCategory,
+        selectedMuscle === 'All' || exercise.muscleGroup === selectedMuscle,
+        selectedLevel === 'All' || exercise.fitnessLevel === selectedLevel,
+        selectedEquipment === 'All' || exercise.equipment === selectedEquipment,
+        lowerSearch === '' ||
+          exercise.name.toLowerCase().includes(lowerSearch) ||
+          (exercise.emoji || '').toLowerCase().includes(lowerSearch) ||
+          (exercise.tags || []).some((tag) => tag.toLowerCase().includes(lowerSearch)),
+      ];
+      return matches.every(Boolean);
     });
   }, [search, selectedCategory, selectedMuscle, selectedLevel, selectedEquipment]);
 
@@ -119,16 +80,16 @@ export default function DiscoverScreen({ navigation, route }) {
       />
 
       <Text style={styles.filterLabel}>Category</Text>
-      {renderFilterButtons(categories, selectedCategory, setSelectedCategory)}
+      {renderFilterButtons(FILTERS.categories, selectedCategory, setSelectedCategory)}
 
       <Text style={styles.filterLabel}>Muscle Group</Text>
-      {renderFilterButtons(muscleGroups, selectedMuscle, setSelectedMuscle)}
+      {renderFilterButtons(FILTERS.muscleGroups, selectedMuscle, setSelectedMuscle)}
 
       <Text style={styles.filterLabel}>Fitness Level</Text>
-      {renderFilterButtons(fitnessLevels, selectedLevel, setSelectedLevel)}
+      {renderFilterButtons(FILTERS.fitnessLevels, selectedLevel, setSelectedLevel)}
 
       <Text style={styles.filterLabel}>Equipment</Text>
-      {renderFilterButtons(equipmentOptions, selectedEquipment, setSelectedEquipment)}
+      {renderFilterButtons(FILTERS.equipment, selectedEquipment, setSelectedEquipment)}
 
       <FlatList
         data={filteredExercises}

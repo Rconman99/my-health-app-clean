@@ -18,7 +18,6 @@ const WorkoutLogScreen = () => {
     try {
       const stored = await loadFromStorage('history');
       if (stored) {
-        // Flatten and sort by date descending
         const sorted = Object.entries(stored)
           .sort((a, b) => b[0].localeCompare(a[0]))
           .flatMap(([date, entry]) =>
@@ -58,8 +57,8 @@ const WorkoutLogScreen = () => {
   };
 
   const onEntryPress = (item) => {
-    // TODO: expand to detail/edit workout entry screen
-    console.log('Selected workout entry:', item);
+    // Future: Open detail screen
+    console.log('Tapped workout entry:', item);
   };
 
   const renderItem = ({ item, index }) => (
@@ -75,7 +74,6 @@ const WorkoutLogScreen = () => {
       )}
 
       <Text style={styles.exerciseName}>{item.name}</Text>
-
       {item.superset && (
         <Text style={styles.supersetLabel}>🔥 Superset {item.superset}</Text>
       )}
@@ -85,7 +83,7 @@ const WorkoutLogScreen = () => {
 
       {Array.isArray(item.weights) && (
         <Text style={styles.detailText}>
-          Weights: {item.weights.map((w, i) => `Round ${i + 1}: ${w || '—'}`).join(', ')}
+          Weights: {item.weights.map((w, i) => `Set ${i + 1}: ${w || '—'}`).join(', ')}
         </Text>
       )}
 
@@ -158,7 +156,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     elevation: 1,
     shadowColor: '#000',
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.05,
     shadowRadius: 4,
     shadowOffset: { width: 0, height: 2 },
   },

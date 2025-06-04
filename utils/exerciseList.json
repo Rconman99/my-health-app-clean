@@ -8,7 +8,7 @@
       "equipment": "Assault Bike",
       "type": "Machine",
       "category": "Cardio",
-      "tags": []
+      "tags": ["Endurance", "HIIT"]
     },
     {
       "name": "Jump Rope",
@@ -18,7 +18,7 @@
       "equipment": "Jump Rope",
       "type": "Bodyweight",
       "category": "Cardio",
-      "tags": []
+      "tags": ["Agility", "Coordination"]
     },
     {
       "name": "Rowing",
@@ -28,7 +28,17 @@
       "equipment": "Rowing Machine",
       "type": "Machine",
       "category": "Cardio",
-      "tags": []
+      "tags": ["Full Body", "Conditioning"]
+    },
+    {
+      "name": "Battle Ropes",
+      "emoji": "🪢",
+      "level": "Intermediate",
+      "muscleGroup": "Arms/Shoulders",
+      "equipment": "Battle Ropes",
+      "type": "Cardio",
+      "category": "Cardio",
+      "tags": ["Explosive", "Interval"]
     }
   ],
   "Functional": [
@@ -40,7 +50,7 @@
       "equipment": "None",
       "type": "Bodyweight",
       "category": "Functional",
-      "tags": []
+      "tags": ["Plyometric", "Metcon"]
     },
     {
       "name": "Kettlebell Swing",
@@ -50,7 +60,17 @@
       "equipment": "Kettlebell",
       "type": "Weighted",
       "category": "Functional",
-      "tags": []
+      "tags": ["Power", "Hip Hinge"]
+    },
+    {
+      "name": "Farmer’s Carry",
+      "emoji": "🧳",
+      "level": "All",
+      "muscleGroup": "Grip/Core",
+      "equipment": "Dumbbells/Kettlebells",
+      "type": "Weighted",
+      "category": "Functional",
+      "tags": ["Stability", "Core"]
     }
   ],
   "CrossFit": [
@@ -62,7 +82,17 @@
       "equipment": "Medicine Ball",
       "type": "Weighted",
       "category": "CrossFit",
-      "tags": []
+      "tags": ["Power", "Metcon"]
+    },
+    {
+      "name": "Thruster",
+      "emoji": "💥",
+      "level": "Advanced",
+      "muscleGroup": "Full Body",
+      "equipment": "Barbell/Dumbbell",
+      "type": "Weighted",
+      "category": "CrossFit",
+      "tags": ["Compound", "Explosive"]
     }
   ],
   "Mobility": [
@@ -74,7 +104,7 @@
       "equipment": "None",
       "type": "Stretch",
       "category": "Mobility",
-      "tags": []
+      "tags": ["Spinal Flow", "Warm-up"]
     },
     {
       "name": "World’s Greatest Stretch",
@@ -84,7 +114,17 @@
       "equipment": "None",
       "type": "Stretch",
       "category": "Mobility",
-      "tags": []
+      "tags": ["Dynamic", "Hip Mobility"]
+    },
+    {
+      "name": "90/90 Hip Stretch",
+      "emoji": "🦵",
+      "level": "All",
+      "muscleGroup": "Hips",
+      "equipment": "None",
+      "type": "Stretch",
+      "category": "Mobility",
+      "tags": ["Hip Opener", "Prehab"]
     }
   ],
   "Recovery": [
@@ -96,7 +136,7 @@
       "equipment": "Foam Roller",
       "type": "Roller",
       "category": "Recovery",
-      "tags": []
+      "tags": ["Release", "Massage"]
     },
     {
       "name": "Lying Hamstring Stretch",
@@ -106,7 +146,17 @@
       "equipment": "Band (Optional)",
       "type": "Stretch",
       "category": "Recovery",
-      "tags": []
+      "tags": ["Flexibility", "Cool-down"]
+    },
+    {
+      "name": "Child’s Pose",
+      "emoji": "🙏",
+      "level": "All",
+      "muscleGroup": "Lower Back",
+      "equipment": "None",
+      "type": "Stretch",
+      "category": "Recovery",
+      "tags": ["Relaxation", "Breathing"]
     }
   ],
   "Strength": [
@@ -118,7 +168,7 @@
       "equipment": "None",
       "type": "Bodyweight",
       "category": "Strength",
-      "tags": []
+      "tags": ["Warm-up", "Mobility"]
     },
     {
       "name": "Barbell Bench Press",
@@ -128,7 +178,7 @@
       "equipment": "Barbell",
       "type": "Weighted",
       "category": "Strength",
-      "tags": []
+      "tags": ["Push", "Compound"]
     },
     {
       "name": "Deadlift",
@@ -138,7 +188,7 @@
       "equipment": "Barbell",
       "type": "Weighted",
       "category": "Strength",
-      "tags": []
+      "tags": ["Pull", "Posterior Chain"]
     },
     {
       "name": "Dumbbell Shoulder Press",
@@ -148,7 +198,7 @@
       "equipment": "Dumbbells",
       "type": "Weighted",
       "category": "Strength",
-      "tags": []
+      "tags": ["Push", "Isolation"]
     },
     {
       "name": "Goblet Squat",
@@ -158,7 +208,7 @@
       "equipment": "Dumbbell/Kettlebell",
       "type": "Weighted",
       "category": "Strength",
-      "tags": []
+      "tags": ["Form Practice", "Unilateral"]
     },
     {
       "name": "Plank",
@@ -168,7 +218,7 @@
       "equipment": "None",
       "type": "Bodyweight",
       "category": "Core",
-      "tags": []
+      "tags": ["Stability", "Endurance"]
     },
     {
       "name": "Pull-Up",
@@ -178,7 +228,7 @@
       "equipment": "Pull-Up Bar",
       "type": "Bodyweight",
       "category": "Strength",
-      "tags": []
+      "tags": ["Bodyweight", "Grip"]
     },
     {
       "name": "Push-Up",
@@ -188,7 +238,27 @@
       "equipment": "None",
       "type": "Bodyweight",
       "category": "Strength",
-      "tags": []
+      "tags": ["Chest", "Triceps"]
+    },
+    {
+      "name": "Barbell Back Squat",
+      "emoji": "🦵",
+      "level": "Intermediate",
+      "muscleGroup": "Legs",
+      "equipment": "Barbell",
+      "type": "Weighted",
+      "category": "Strength",
+      "tags": ["Quads", "Glutes"]
+    },
+    {
+      "name": "Romanian Deadlift",
+      "emoji": "🧍‍♂️",
+      "level": "Intermediate",
+      "muscleGroup": "Hamstrings",
+      "equipment": "Barbell/Dumbbells",
+      "type": "Weighted",
+      "category": "Strength",
+      "tags": ["Hamstrings", "Glutes"]
     }
   ]
 }

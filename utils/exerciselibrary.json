@@ -1,122 +1,152 @@
 [
   {
     "id": "ex001",
-    "name": "Squat",
-    "category": "Legs",
-    "type": "Strength",
+    "name": "Conventional Deadlift",
+    "category": "Strength",
+    "type": "Compound",
     "emoji": "🏋️‍♂️",
-    "description": "A fundamental compound lower body exercise targeting quads, hamstrings, and glutes."
+    "level": "Intermediate",
+    "muscle": "Back",
+    "equipment": "Barbell"
   },
   {
     "id": "ex002",
-    "name": "Deadlift",
-    "category": "Back",
-    "type": "Strength",
-    "emoji": "🏋️‍♂️",
-    "description": "A key compound lift working the posterior chain including hamstrings, glutes, and lower back."
+    "name": "Pull-Up",
+    "category": "Strength",
+    "type": "Bodyweight",
+    "emoji": "💪",
+    "level": "Intermediate",
+    "muscle": "Back",
+    "equipment": "None"
   },
   {
     "id": "ex003",
-    "name": "Push-Up",
-    "category": "Chest",
-    "type": "Bodyweight",
-    "emoji": "🤸‍♂️",
-    "description": "A classic upper body bodyweight exercise targeting chest, shoulders, and triceps."
+    "name": "Barbell Row",
+    "category": "Strength",
+    "type": "Compound",
+    "emoji": "🏋️‍♂️",
+    "level": "Intermediate",
+    "muscle": "Back",
+    "equipment": "Barbell"
   },
   {
     "id": "ex004",
-    "name": "Pull-Up",
-    "category": "Back",
-    "type": "Bodyweight",
-    "emoji": "💪",
-    "description": "A challenging bodyweight exercise focusing on upper back and biceps."
+    "name": "Lat Pulldown",
+    "category": "Strength",
+    "type": "Isolation",
+    "emoji": "🎯",
+    "level": "Beginner",
+    "muscle": "Back",
+    "equipment": "Machine"
   },
   {
     "id": "ex005",
-    "name": "Overhead Press",
-    "category": "Shoulders",
-    "type": "Strength",
-    "emoji": "🏋️‍♂️",
-    "description": "A compound upper body press focusing on shoulders and triceps."
+    "name": "Seated Cable Row",
+    "category": "Strength",
+    "type": "Compound",
+    "emoji": "🧷",
+    "level": "Beginner",
+    "muscle": "Back",
+    "equipment": "Cable"
   },
   {
     "id": "ex006",
-    "name": "Plank",
-    "category": "Core",
-    "type": "Isometric",
-    "emoji": "🧘‍♂️",
-    "description": "Core strengthening isometric hold targeting abdominals and stabilizers."
+    "name": "Dumbbell Row",
+    "category": "Strength",
+    "type": "Isolation",
+    "emoji": "🏋️‍♀️",
+    "level": "Beginner",
+    "muscle": "Back",
+    "equipment": "Dumbbells"
   },
   {
     "id": "ex007",
-    "name": "Lunges",
-    "category": "Legs",
-    "type": "Strength",
-    "emoji": "🦵",
-    "description": "A unilateral lower body exercise working quads, hamstrings, and glutes."
+    "name": "Chest-Supported Row",
+    "category": "Strength",
+    "type": "Compound",
+    "emoji": "🪑",
+    "level": "Intermediate",
+    "muscle": "Back",
+    "equipment": "Dumbbells"
   },
   {
     "id": "ex008",
-    "name": "Burpees",
-    "category": "Full Body",
-    "type": "Cardio/Bodyweight",
-    "emoji": "🏃‍♂️",
-    "description": "A high intensity full body movement combining squat, jump, and push-up."
+    "name": "T-Bar Row",
+    "category": "Strength",
+    "type": "Compound",
+    "emoji": "🔩",
+    "level": "Advanced",
+    "muscle": "Back",
+    "equipment": "Barbell"
   },
   {
     "id": "ex009",
-    "name": "Bicep Curl",
-    "category": "Arms",
-    "type": "Strength",
-    "emoji": "💪",
-    "description": "Isolation exercise targeting the biceps with dumbbells or barbell."
+    "name": "Face Pull",
+    "category": "Strength",
+    "type": "Isolation",
+    "emoji": "🎯",
+    "level": "Intermediate",
+    "muscle": "Shoulders",
+    "equipment": "Cable"
   },
   {
     "id": "ex010",
-    "name": "Mountain Climbers",
-    "category": "Core/Cardio",
-    "type": "Bodyweight/Cardio",
-    "emoji": "⛰️",
-    "description": "Dynamic core and cardio movement performed in plank position."
+    "name": "Incline Bench Row",
+    "category": "Strength",
+    "type": "Compound",
+    "emoji": "🛋️",
+    "level": "Intermediate",
+    "muscle": "Back",
+    "equipment": "Dumbbells"
   },
   {
     "id": "ex011",
-    "name": "Kettlebell Swing",
-    "category": "Full Body",
-    "type": "Strength/Cardio",
-    "emoji": "🏋️‍♀️",
-    "description": "Explosive hip hinge movement for power and conditioning."
+    "name": "Superman Hold",
+    "category": "Mobility",
+    "type": "Isometric",
+    "emoji": "🦸‍♂️",
+    "level": "Beginner",
+    "muscle": "Back",
+    "equipment": "None"
   },
   {
     "id": "ex012",
-    "name": "Jump Rope",
-    "category": "Cardio",
-    "type": "Conditioning",
-    "emoji": "🤸‍♀️",
-    "description": "Classic cardio exercise improving coordination and endurance."
+    "name": "Good Morning",
+    "category": "Strength",
+    "type": "Isolation",
+    "emoji": "🌅",
+    "level": "Advanced",
+    "muscle": "Back",
+    "equipment": "Barbell"
   },
   {
     "id": "ex013",
-    "name": "Bench Press",
-    "category": "Chest",
-    "type": "Strength",
-    "emoji": "🏋️‍♂️",
-    "description": "A staple compound exercise targeting the chest, shoulders, and triceps."
+    "name": "Reverse Fly",
+    "category": "Strength",
+    "type": "Isolation",
+    "emoji": "🕊️",
+    "level": "Beginner",
+    "muscle": "Shoulders",
+    "equipment": "Dumbbells"
   },
   {
     "id": "ex014",
-    "name": "Russian Twist",
-    "category": "Core",
-    "type": "Bodyweight",
-    "emoji": "🔄",
-    "description": "Rotational core exercise focusing on obliques."
+    "name": "Trap Bar Deadlift",
+    "category": "Strength",
+    "type": "Compound",
+    "emoji": "🏋️",
+    "level": "Intermediate",
+    "muscle": "Back",
+    "equipment": "Trap Bar"
   },
   {
     "id": "ex015",
-    "name": "Box Jump",
-    "category": "Legs",
-    "type": "Plyometrics",
-    "emoji": "📦",
-    "description": "Explosive plyometric jump onto a raised platform to develop power."
+    "name": "Renegade Row",
+    "category": "Strength",
+    "type": "Compound",
+    "emoji": "🤠",
+    "level": "Advanced",
+    "muscle": "Back",
+    "equipment": "Dumbbells"
   }
 ]

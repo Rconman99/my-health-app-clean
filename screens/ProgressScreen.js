@@ -45,9 +45,11 @@ const ProgressScreen = () => {
   const renderItem = ({ item }) => (
     <View style={styles.card}>
       <Text style={styles.day}>{item.day}</Text>
-      <Text style={styles.details}>✅ {item.completed} / {item.total} completed</Text>
+      <Text style={styles.details}>
+        ✅ {item.completed} / {item.total} completed
+      </Text>
 
-      <View style={styles.progressBarBackground}>
+      <View style={styles.progressBarBackground} accessibilityRole="progressbar">
         <View
           style={[
             styles.progressBarFill,
@@ -109,9 +111,14 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   progressBarComplete: {
-    backgroundColor: '#28a745', // green when 100%
+    backgroundColor: '#28a745',
   },
-  percent: { fontSize: 14, marginTop: 4, fontWeight: 'bold', color: '#007bff' },
+  percent: {
+    fontSize: 14,
+    marginTop: 4,
+    fontWeight: 'bold',
+    color: '#007bff',
+  },
   emptyContainer: {
     marginTop: 80,
     alignItems: 'center',

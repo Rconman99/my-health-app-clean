@@ -1,23 +1,28 @@
+// utils/gemini.js
+// Gemini AI Request Handler — securely connects to Google's Gemini API
+
+const GEMINI_API_KEY = 'REDACTED_GEMINI_KEY'; // Production key
+
 export async function askGemini(promptText) {
-  const apiKey = 'REDACTED_GEMINI_KEY_2';
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${apiKey}`;
+  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
 
   const body = {
     contents: [{ parts: [{ text: promptText }] }],
   };
 
   try {
-    const res = await fetch(endpoint, {
+    const response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
 
-    const json = await res.json();
-    const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
-    return text || 'No response from Gemini.';
-  } catch (err) {
-    console.error('Gemini error:', err);
+    const data = await response.json();
+    const answer = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    return answer || 'No response from Gemini.';
+  } catch (error) {
+    console.error('Gemini API error:', error);
     return 'Error connecting to Gemini.';
   }
 }

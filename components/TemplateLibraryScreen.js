@@ -47,7 +47,6 @@ const TemplateLibraryScreen = () => {
     try {
       const stored = await AsyncStorage.getItem(STORAGE_KEY);
       const parsed = stored ? JSON.parse(stored) : [];
-      // Combine defaults with custom templates, ensuring no duplicates by id
       const combined = [...defaultTemplates];
       parsed.forEach((ct) => {
         if (!combined.some((dt) => dt.id === ct.id)) combined.push(ct);
@@ -117,95 +116,4 @@ const TemplateLibraryScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header} accessibilityRole="header" accessibilityLabel="Template Library">
-        🏋️ Template Library
-      </Text>
-
-      <TouchableOpacity
-        style={styles.addButton}
-        onPress={handleAddTemplate}
-        accessibilityRole="button"
-        accessibilityLabel="Add New Template"
-      >
-        <Text style={styles.addButtonText}>+ Add New Template</Text>
-      </TouchableOpacity>
-
-      {templates.length === 0 ? (
-        <View style={styles.center}>
-          <Text style={styles.emptyText}>No templates available.</Text>
-        </View>
-      ) : (
-        <FlatList
-          data={templates}
-          keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            const isDefault = defaultTemplates.some((dt) => dt.id === item.id);
-            return (
-              <TouchableOpacity
-                style={styles.card}
-                onPress={() => handleUseTemplate(item)}
-                onLongPress={() => {
-                  if (!isDefault) {
-                    Alert.alert(
-                      'Edit or Delete?',
-                      `Manage template "${item.name}"`,
-                      [
-                        { text: 'Cancel', style: 'cancel' },
-                        { text: 'Edit', onPress: () => handleEditTemplate(item) },
-                        { text: 'Delete', style: 'destructive', onPress: () => handleDeleteTemplate(item.id) },
-                      ],
-                      { cancelable: true }
-                    );
-                  }
-                }}
-                accessibilityRole="button"
-                accessibilityLabel={`Use template ${item.name}`}
-                accessibilityHint={isDefault ? 'Default template, cannot edit or delete' : 'Long press to edit or delete'}
-              >
-                <Text style={styles.name}>{item.name}</Text>
-                <Text style={styles.meta}>{item.description}</Text>
-                <Text style={styles.meta}>Duration: {item.weeks} weeks</Text>
-                <Text style={styles.goalTags}>{item.goals.join(', ')}</Text>
-              </TouchableOpacity>
-            );
-          }}
-          accessibilityLabel="List of workout templates"
-        />
-      )}
-    </View>
-  );
-};
-
-const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16, backgroundColor: '#fff' },
-  center: { justifyContent: 'center', alignItems: 'center' },
-  header: { fontSize: 22, fontWeight: 'bold', marginBottom: 16 },
-  emptyText: { fontSize: 18, color: '#666' },
-  card: {
-    backgroundColor: '#f9f9f9',
-    padding: 14,
-    borderRadius: 8,
-    marginBottom: 12,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    shadowOffset: { width: 0, height: 2 },
-  },
-  name: { fontSize: 18, fontWeight: 'bold' },
-  meta: { fontSize: 14, color: '#555', marginTop: 4 },
-  goalTags: { fontSize: 13, marginTop: 6, color: '#007bff' },
-  addButton: {
-    backgroundColor: '#007bff',
-    padding: 14,
-    borderRadius: 8,
-    marginBottom: 20,
-    alignItems: 'center',
-  },
-  addButtonText: {
-    color: '#fff',
-    fontWeight: '700',
-    fontSize: 16,
-  },
-});
-
-export default TemplateLibraryScreen;
+        

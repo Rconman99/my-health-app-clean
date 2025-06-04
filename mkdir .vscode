@@ -1,0 +1,18 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",                 // JS/TS linting
+    "esbenp.prettier-vscode",                // Code formatting
+    "msjsdiag.vscode-react-native",          // React Native debugging
+    "christian-kohler.path-intellisense",    // Autocomplete for paths
+    "formulahendry.auto-rename-tag",         // Auto-renaming HTML/JSX tags
+    "CoenraadS.bracket-pair-colorizer-2",    // Visual bracket matching
+    "eamodio.gitlens",                       // Git enhancements
+    "dsznajder.es7-react-js-snippets",       // React/Redux snippets
+
+    // ✅ Optional but recommended:
+    "Orta.vscode-jest",                      // Inline test results with Jest
+    "rangav.vscode-thunder-client",          // REST client for API testing
+    "GitHub.copilot",                        // AI code suggestions
+    "GitHub.copilot-chat"                    // AI chat assistant in editor
+  ]
+}

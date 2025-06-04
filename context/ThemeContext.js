@@ -1,44 +1,47 @@
-// ThemeContext.js
+// utils/themecontext.js
 
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 
 const STORAGE_KEY = 'user-theme-preference';
-
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [darkMode, setDarkMode] = useState(false);
 
+  // Load theme preference on mount
   useEffect(() => {
-    (async () => {
+    const loadThemePreference = async () => {
       try {
         const saved = await AsyncStorage.getItem(STORAGE_KEY);
         if (saved !== null) {
           setDarkMode(saved === 'dark');
         }
       } catch (e) {
-        console.warn('Failed to load theme preference');
+        console.warn('Failed to load theme preference:', e);
       }
-    })();
+    };
+    loadThemePreference();
   }, []);
 
+  // Persist theme preference
   useEffect(() => {
-    AsyncStorage.setItem(STORAGE_KEY, darkMode ? 'dark' : 'light').catch(() => {
-      console.warn('Failed to save theme preference');
-    });
+    AsyncStorage.setItem(STORAGE_KEY, darkMode ? 'dark' : 'light').catch((err) =>
+      console.warn('Failed to save theme preference:', err)
+    );
   }, [darkMode]);
 
   const toggleTheme = () => setDarkMode((prev) => !prev);
 
-  const theme = darkMode ? DarkTheme : DefaultTheme;
+  const baseTheme = darkMode ? DarkTheme : DefaultTheme;
 
   const extendedTheme = {
-    ...theme,
+    ...baseTheme,
     colors: {
-      ...theme.colors,
+      ...baseTheme.colors,
       textSecondary: darkMode ? '#ccc' : '#555',
+      backgroundSoft: darkMode ? '#121212' : '#f9f9f9',
     },
   };
 

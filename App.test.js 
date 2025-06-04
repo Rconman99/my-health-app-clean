@@ -3,10 +3,31 @@ import React from 'react';
 import { render } from '@testing-library/react-native';
 import App from './App';
 
-describe('App', () => {
-  it('renders without crashing and shows main content', () => {
-    const { getByText } = render(<App />);
-    // Adjust text check based on your actual landing screen content
-    expect(getByText(/Dashboard/i)).toBeTruthy();
+describe('App Navigation', () => {
+  it('renders the app and shows the Dashboard tab', async () => {
+    const { findByText } = render(<App />);
+
+    // Adjust this based on what text is always visible in your Dashboard
+    const dashboardTab = await findByText(/Dashboard/i);
+    expect(dashboardTab).toBeTruthy();
+  });
+
+  it('contains all main navigation tabs', async () => {
+    const { findByText } = render(<App />);
+    const tabs = [
+      'Dashboard',
+      'Profile',
+      'Suggestions',
+      'Workout',
+      'Tracker',
+      'Journal',
+      'Trends',
+      'Settings',
+    ];
+
+    for (const tab of tabs) {
+      const element = await findByText(new RegExp(tab, 'i'));
+      expect(element).toBeTruthy();
+    }
   });
 });

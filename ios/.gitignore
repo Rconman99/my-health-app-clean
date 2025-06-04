@@ -1,30 +1,80 @@
-# OSX
-#
+# macOS
 .DS_Store
 
-# Xcode
-#
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependency directories
+.expo/
+.expo-shared/
+android/
+ios/
+
+# Build output
 build/
-*.pbxuser
-!default.pbxuser
-*.mode1v3
-!default.mode1v3
-*.mode2v3
-!default.mode2v3
-*.perspectivev3
-!default.perspectivev3
-xcuserdata
-*.xccheckout
-*.moved-aside
-DerivedData
+dist/
+*.jsbundle
+web-build/
 *.hmap
 *.ipa
+*.apk
+
+# Xcode
+xcuserdata/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
 *.xcuserstate
-project.xcworkspace
+*.xccheckout
+*.moved-aside
+DerivedData/
+project.xcworkspace/
 .xcode.env.local
 
-# Bundle artifacts
-*.jsbundle
+# Android Studio
+*.iml
+.gradle
+/local.properties
+/.idea
+.DS_Store
+.cxx/
+
+# VS Code
+.vscode/
+
+# Metro, Babel, Jest
+.cache/
+babel.config.js
+jest.config.js
+coverage/
+
+# Environment files
+.env
+.env.local
+.env.*.local
 
 # CocoaPods
-/Pods/
+Pods/
+Podfile.lock
+
+# Expo EAS
+*.tar.gz
+eas.json
+
+# Misc
+*.log
+npm-debug.log*
+yarn.lock
+
+# macOS system files
+Icon?
+._*
+.Spotlight-V100
+.Trashes

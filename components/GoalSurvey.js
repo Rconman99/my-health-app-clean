@@ -8,8 +8,9 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Alert,
+  TextInput,
 } from 'react-native';
-import { saveToStorage } from '../storage';
+import { saveToStorage, loadFromStorage } from '../storage';
 
 const goalOptions = [
   "Build Muscle",
@@ -27,6 +28,8 @@ const goalOptions = [
 const GoalSurvey = ({ navigation, route }) => {
   const { profile } = route.params || {};
   const [selectedGoals, setSelectedGoals] = useState([]);
+  const [customGoal, setCustomGoal] = useState('');
+  const [timeline, setTimeline] = useState('');
   const [loading, setLoading] = useState(false);
 
   const toggleGoal = (goal) => {
@@ -40,12 +43,15 @@ const GoalSurvey = ({ navigation, route }) => {
       Alert.alert('Profile data is missing.');
       return;
     }
-    if (selectedGoals.length === 0) {
-      Alert.alert('Please select at least one goal.');
+    if (selectedGoals.length === 0 && !customGoal.trim()) {
+      Alert.alert('Please select or enter at least one goal.');
       return;
     }
 
     setLoading(true);
+
+    const allGoals = [...selectedGoals];
+    if (customGoal.trim()) allGoals.push(customGoal.trim());
 
     const prompt = `
 Create a personalized health optimization and fitness strategy based on the following user profile:
@@ -55,7 +61,8 @@ Age: ${profile.age}
 Height: ${profile.height}" (inches)
 Weight: ${profile.weight} lbs
 Fitness Level: ${profile.fitnessLevel}
-Goals: ${selectedGoals.join(', ')}
+Goals: ${allGoals.join(', ')}
+Timeline: ${timeline || 'Not specified'}
 
 Include:
 - Workout split recommendation
@@ -69,11 +76,7 @@ Include:
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
-<<<<<<< HEAD
-          Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-=======
           Authorization: 'Bearer YOUR_OPENAI_API_KEY_HERE',
->>>>>>> 8a49e53 (Update latest changes)
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
@@ -84,11 +87,6 @@ Include:
       });
 
       const data = await response.json();
-<<<<<<< HEAD
-      console.log('GPT FULL RESPONSE:', JSON.stringify(data, null, 2));
-=======
->>>>>>> 8a49e53 (Update latest changes)
-
       let suggestions = 'No suggestions returned.';
       if (
         data &&
@@ -102,12 +100,12 @@ Include:
       }
 
       await saveToStorage('profile', profile);
-      await saveToStorage('goals', selectedGoals);
+      await saveToStorage('goals', allGoals);
       await saveToStorage('suggestions', suggestions);
 
       navigation.navigate('Suggestions', {
         profile,
-        goals: selectedGoals,
+        goals: allGoals,
         suggestions,
       });
     } catch (error) {
@@ -138,6 +136,20 @@ Include:
           </TouchableOpacity>
         );
       })}
+
+      <TextInput
+        style={styles.input}
+        placeholder="Or enter a custom goal..."
+        value={customGoal}
+        onChangeText={setCustomGoal}
+      />
+
+      <TextInput
+        style={styles.input}
+        placeholder="Optional: Desired timeline (e.g., 3 months)"
+        value={timeline}
+        onChangeText={setTimeline}
+      />
 
       {loading ? (
         <ActivityIndicator size="large" color="#007aff" style={{ marginTop: 20 }} />
@@ -179,6 +191,14 @@ const styles = StyleSheet.create({
   goalTextSelected: {
     color: '#fff',
     fontWeight: '600',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    marginTop: 10,
+    marginBottom: 20,
   },
 });
 

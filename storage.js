@@ -1,3 +1,4 @@
+// utils/storage.js
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const saveToStorage = async (key, value) => {
@@ -15,5 +16,21 @@ export const loadFromStorage = async (key) => {
   } catch (err) {
     console.error('Storage load error:', err);
     return null;
+  }
+};
+
+export const removeFromStorage = async (key) => {
+  try {
+    await AsyncStorage.removeItem(key);
+  } catch (err) {
+    console.error('Storage remove error:', err);
+  }
+};
+
+export const clearAllStorage = async () => {
+  try {
+    await AsyncStorage.clear();
+  } catch (err) {
+    console.error('Storage clear error:', err);
   }
 };

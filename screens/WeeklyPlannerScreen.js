@@ -46,20 +46,32 @@ const WeeklyPlannerScreen = () => {
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.header}>🗓️ Weekly Workout Planner</Text>
-      {DAYS.map((day) => (
-        <TouchableOpacity
-          key={day}
-          style={styles.dayCard}
-          onPress={() => handleSelectDay(day)}
-          accessibilityRole="button"
-          accessibilityLabel={`Plan workout for ${day}`}
-        >
-          <Text style={styles.dayText}>{day}</Text>
-          <Text style={styles.subText}>
-            {weekPlan[day]?.workout?.length > 0 ? '✅ Workout Planned' : '➕ Tap to Add Workout'}
-          </Text>
-        </TouchableOpacity>
-      ))}
+      {DAYS.map((day) => {
+        const isPlanned = weekPlan[day]?.workout?.length > 0;
+        const count = weekPlan[day]?.workout?.length || 0;
+
+        return (
+          <TouchableOpacity
+            key={day}
+            style={[
+              styles.dayCard,
+              isPlanned && styles.dayCardPlanned,
+            ]}
+            onPress={() => handleSelectDay(day)}
+            accessibilityRole="button"
+            accessibilityLabel={`Plan workout for ${day}`}
+          >
+            <Text style={styles.dayText}>
+              {day} {isPlanned ? '💪' : '📝'}
+            </Text>
+            <Text style={styles.subText}>
+              {isPlanned
+                ? `✅ ${count} Exercise${count > 1 ? 's' : ''} Planned`
+                : '➕ Tap to Add Workout'}
+            </Text>
+          </TouchableOpacity>
+        );
+      })}
     </ScrollView>
   );
 };
@@ -74,16 +86,28 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
+    color: '#333',
   },
   dayCard: {
-    backgroundColor: '#f2f2f2',
-    padding: 16,
-    borderRadius: 10,
+    backgroundColor: '#f9f9f9',
+    padding: 18,
+    borderRadius: 12,
     marginBottom: 12,
+    shadowColor: '#000',
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  dayCardPlanned: {
+    backgroundColor: '#e6f4ea', // light green background if planned
+    borderLeftWidth: 5,
+    borderLeftColor: '#28a745',
   },
   dayText: {
     fontSize: 18,
     fontWeight: '600',
+    color: '#333',
   },
   subText: {
     fontSize: 14,

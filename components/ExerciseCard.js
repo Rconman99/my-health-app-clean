@@ -1,227 +1,172 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
+  StyleSheet,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
+  Alert,
 } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
-import exerciseLibrary from '../utils/exerciselibrary';
 
-export default function ExerciseCard({
-  exercise,
-  updateWeights,
-  toggleComplete,
-  removeExercise,
-  swapExercise,
-  index,
-  reorderExercise,
-  timerEnabled,
-  lastIndex,
-}) {
-  const [timer, setTimer] = useState(exercise.restTime || 60);
-  const [timerActive, setTimerActive] = useState(false);
-  const [customExercise, setCustomExercise] = useState(exercise.name);
-
-  useEffect(() => {
-    let interval;
-    if (timerActive) {
-      interval = setInterval(() => {
-        setTimer((t) => {
-          if (t <= 1) {
-            clearInterval(interval);
-            setTimerActive(false);
-            return 0;
-          }
-          return t - 1;
-        });
-      }, 1000);
-    }
-    return () => clearInterval(interval);
-  }, [timerActive]);
-
-  const handleSwap = (newName) => {
-    if (newName === customExercise) return; // prevent no-op
-    const newEx = exerciseLibrary.find((e) => e.name === newName);
-    if (newEx) {
-      swapExercise(exercise.id, newEx);
-      setCustomExercise(newName);
-    }
+const ExerciseCard = ({ exercise, onUpdate, onRemove }) => {
+  const handleRoundChange = (index, field, value) => {
+    const updatedRounds = exercise.rounds.map((round, i) =>
+      i === index ? { ...round, [field]: value } : round
+    );
+    onUpdate(exercise.id, { rounds: updatedRounds });
   };
 
-  const handleTimerToggle = () => {
-    setTimerActive(!timerActive);
+  const handleAddRound = () => {
+    const updatedRounds = [...(exercise.rounds || []), { sets: '', reps: '', weight: '' }];
+    onUpdate(exercise.id, { rounds: updatedRounds });
   };
 
-  const handleManualTime = (text) => {
-    const num = parseInt(text);
-    if (!isNaN(num)) setTimer(num);
+  const handleRemoveRound = (index) => {
+    const updatedRounds = exercise.rounds.filter((_, i) => i !== index);
+    onUpdate(exercise.id, { rounds: updatedRounds });
   };
 
   return (
-    <View style={[styles.card, exercise.completed && styles.completed]}>
-      <View style={styles.headerRow}>
-        <Text style={styles.exerciseName}>{exercise.emoji} {customExercise}</Text>
-        <TouchableOpacity
-          onPress={() => toggleComplete(exercise.id)}
-          accessibilityLabel={exercise.completed ? 'Mark as incomplete' : 'Mark as complete'}
-        >
-          <Text style={styles.completeBtn}>
-            {exercise.completed ? '✅ Finished ✅' : '☐ Start This Set'}
-          </Text>
-        </TouchableOpacity>
+    <View style={styles.card}>
+      <View style={styles.header}>
+        <Text style={styles.title}>{exercise.emoji} {exercise.name}</Text>
+        <Text style={styles.category}>{exercise.category} | {exercise.level}</Text>
       </View>
 
-      <Text style={styles.label}>Swap Exercise:</Text>
-      <View style={styles.dropdown}>
-        <Picker
-          selectedValue={customExercise}
-          onValueChange={handleSwap}
-          accessibilityLabel="Exercise swap selector"
+      <View style={styles.details}>
+        {Array.isArray(exercise.rounds) && exercise.rounds.length > 0 ? (
+          exercise.rounds.map((round, index) => (
+            <View key={index} style={styles.roundRow}>
+              <Text style={styles.roundLabel}>Round {index + 1}</Text>
+              <TextInput
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder="Sets"
+                value={round.sets?.toString() || ''}
+                onChangeText={(text) => handleRoundChange(index, 'sets', text)}
+              />
+              <TextInput
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder="Reps"
+                value={round.reps?.toString() || ''}
+                onChangeText={(text) => handleRoundChange(index, 'reps', text)}
+              />
+              <TextInput
+                style={styles.input}
+                keyboardType="numeric"
+                placeholder="Weight"
+                value={round.weight?.toString() || ''}
+                onChangeText={(text) => handleRoundChange(index, 'weight', text)}
+              />
+              <TouchableOpacity onPress={() => handleRemoveRound(index)}>
+                <Text style={styles.removeRoundText}>Remove</Text>
+              </TouchableOpacity>
+            </View>
+          ))
+        ) : (
+          <Text style={styles.detail}>No rounds added yet.</Text>
+        )}
+
+        <TouchableOpacity
+          onPress={handleAddRound}
+          style={styles.addRoundButton}
+          accessibilityLabel="Add round"
         >
-          {exerciseLibrary.map((ex) => (
-            <Picker.Item key={ex.name} label={`${ex.emoji} ${ex.name}`} value={ex.name} />
-          ))}
-        </Picker>
+          <Text style={styles.addRoundText}>+ Add Round</Text>
+        </TouchableOpacity>
+
+        {exercise.notes ? (
+          <Text style={styles.notes}>📝 {exercise.notes}</Text>
+        ) : null}
       </View>
 
-      <Text style={styles.label}>Weights by Round:</Text>
-      {exercise.weights.map((weight, i) => (
-        <TextInput
-          key={i}
-          placeholder={`Round ${i + 1} weight`}
-          value={String(weight)}
-          keyboardType="number-pad"
-          onChangeText={(text) => updateWeights(exercise.id, i, text)}
-          style={styles.input}
-          accessibilityLabel={`Weight for round ${i + 1}`}
-        />
-      ))}
-
-      {timerEnabled && (
-        <>
-          <Text style={styles.label}>Rest Timer: {timer}s</Text>
-          <View style={styles.timerRow}>
-            <TouchableOpacity
-              onPress={handleTimerToggle}
-              style={styles.timerBtn}
-              accessibilityLabel={timerActive ? 'Stop timer' : 'Start timer'}
-            >
-              <Text>{timerActive ? '⏹ Stop' : '▶️ Start'}</Text>
-            </TouchableOpacity>
-            <TextInput
-              style={styles.timerInput}
-              keyboardType="number-pad"
-              value={String(timer)}
-              onChangeText={handleManualTime}
-              placeholder="Set Time"
-              accessibilityLabel="Manual timer input"
-            />
-          </View>
-        </>
-      )}
-
-      <View style={styles.row}>
+      <View style={styles.buttonRow}>
         <TouchableOpacity
-          onPress={() => reorderExercise(index, index - 1)}
-          disabled={index === 0}
-          accessibilityLabel="Move exercise up"
-        >
-          <Text style={[styles.orderBtn, index === 0 && styles.disabledBtn]}>⬆️</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => reorderExercise(index, index + 1)}
-          disabled={index === lastIndex}
-          accessibilityLabel="Move exercise down"
-        >
-          <Text style={[styles.orderBtn, index === lastIndex && styles.disabledBtn]}>⬇️</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          onPress={() => removeExercise(exercise.id)}
+          onPress={() => onRemove(exercise.id)}
+          style={styles.removeButton}
           accessibilityLabel="Remove exercise"
         >
-          <Text style={styles.removeBtn}>🗑️ Remove</Text>
+          <Text style={styles.buttonText}>Remove</Text>
         </TouchableOpacity>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fdfdfd',
-    borderRadius: 10,
-    padding: 12,
-    marginVertical: 8,
-    borderWidth: 1,
-    borderColor: '#ccc',
+    backgroundColor: '#f2f2f2',
+    padding: 16,
+    borderRadius: 12,
+    marginVertical: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  completed: {
-    backgroundColor: '#e6ffe6',
+  header: {
+    marginBottom: 8,
   },
-  headerRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  exerciseName: {
-    fontWeight: 'bold',
+  title: {
     fontSize: 18,
+    fontWeight: 'bold',
   },
-  label: {
-    marginTop: 10,
-    fontWeight: '500',
+  category: {
+    fontSize: 14,
+    color: '#666',
   },
-  dropdown: {
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 6,
+  details: {
     marginTop: 6,
+  },
+  roundRow: {
+    marginBottom: 10,
+  },
+  roundLabel: {
+    fontWeight: '600',
+    marginBottom: 4,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#aaa',
+    borderColor: '#ccc',
     borderRadius: 6,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    marginBottom: 6,
-    marginTop: 4,
+    padding: 8,
+    marginBottom: 4,
   },
-  timerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    marginTop: 6,
+  removeRoundText: {
+    color: '#FF3B30',
+    fontWeight: 'bold',
+    textAlign: 'right',
   },
-  timerBtn: {
-    backgroundColor: '#dff',
-    padding: 6,
-    borderRadius: 6,
+  addRoundButton: {
+    marginTop: 8,
   },
-  timerInput: {
-    borderWidth: 1,
-    borderColor: '#888',
-    padding: 4,
-    width: 80,
-    borderRadius: 6,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  completeBtn: {
+  addRoundText: {
     color: '#007AFF',
     fontWeight: '600',
   },
-  removeBtn: {
-    color: 'red',
+  notes: {
+    fontSize: 13,
+    fontStyle: 'italic',
+    color: '#444',
+    marginTop: 6,
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    marginTop: 12,
+  },
+  removeButton: {
+    backgroundColor: '#F44336',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+  },
+  buttonText: {
+    color: '#fff',
     fontWeight: '600',
   },
-  orderBtn: {
-    fontSize: 20,
-  },
-  disabledBtn: {
-    opacity: 0.3,
-  },
 });
+
+export default ExerciseCard;

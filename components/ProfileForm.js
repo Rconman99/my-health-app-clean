@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -76,7 +77,7 @@ const ProfileForm = ({ navigation }) => {
     try {
       await AsyncStorage.setItem('profile', JSON.stringify(profile));
       Alert.alert('Success', 'Profile saved!');
-      navigation.navigate('Suggestions'); // Adjust destination as needed
+      navigation.navigate('Suggestions');
     } catch (err) {
       console.error('Failed to save profile:', err);
       Alert.alert('Error', 'Failed to save profile. Please try again.');
@@ -137,16 +138,21 @@ const ProfileForm = ({ navigation }) => {
         />
 
         <Text style={styles.label}>Fitness Level</Text>
-        {fitnessLevels.map((level) => (
-          <View key={level} style={styles.radioContainer}>
-            <Button
-              title={level}
-              color={profile.fitnessLevel === level ? '#007aff' : '#ccc'}
-              onPress={() => setProfile({ ...profile, fitnessLevel: level })}
-              accessibilityLabel={`Select fitness level ${level}`}
-            />
-          </View>
-        ))}
+        <View style={styles.levelsContainer}>
+          {fitnessLevels.map((level) => {
+            const selected = profile.fitnessLevel === level;
+            return (
+              <TouchableOpacity
+                key={level}
+                style={[styles.levelButton, selected && styles.levelButtonSelected]}
+                onPress={() => setProfile({ ...profile, fitnessLevel: level })}
+                accessibilityLabel={`Select fitness level ${level}`}
+              >
+                <Text style={[styles.levelText, selected && styles.levelTextSelected]}>{level}</Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
 
         <View style={styles.saveButtonContainer}>
           <Button
@@ -187,8 +193,31 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     color: '#444',
   },
-  radioContainer: {
-    marginBottom: 12,
+  levelsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginBottom: 30,
+  },
+  levelButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    backgroundColor: '#eee',
+    borderRadius: 8,
+    marginBottom: 10,
+    minWidth: '48%',
+    alignItems: 'center',
+  },
+  levelButtonSelected: {
+    backgroundColor: '#007aff',
+  },
+  levelText: {
+    color: '#333',
+    fontWeight: '500',
+  },
+  levelTextSelected: {
+    color: '#fff',
+    fontWeight: '700',
   },
   saveButtonContainer: {
     marginTop: 30,

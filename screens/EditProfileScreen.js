@@ -14,7 +14,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const fitnessLevels = ['Beginner', 'Intermediate', 'Advanced', 'Athlete'];
 
-export default function ProfileForm({ navigation }) {
+export default function EditProfileScreen({ navigation }) {
   const [profile, setProfile] = useState({
     name: '',
     age: '',
@@ -37,28 +37,32 @@ export default function ProfileForm({ navigation }) {
     loadProfile();
   }, []);
 
-  const saveProfile = async () => {
+  const handleChange = (key, value) => {
+    setProfile((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const validateAndSave = async () => {
     if (!profile.name.trim()) {
-      Alert.alert('Please enter your name.');
-      return;
+      return Alert.alert('Please enter your name.');
     }
+
+    const { age, height, weight } = profile;
     if (
-      (profile.age && isNaN(Number(profile.age))) ||
-      (profile.height && isNaN(Number(profile.height))) ||
-      (profile.weight && isNaN(Number(profile.weight)))
+      (age && isNaN(Number(age))) ||
+      (height && isNaN(Number(height))) ||
+      (weight && isNaN(Number(weight)))
     ) {
-      Alert.alert('Please enter valid numbers for age, height, and weight.');
-      return;
+      return Alert.alert('Please enter valid numbers for age, height, and weight.');
     }
+
     if (!profile.fitnessLevel) {
-      Alert.alert('Please select a fitness level.');
-      return;
+      return Alert.alert('Please select a fitness level.');
     }
 
     try {
       await AsyncStorage.setItem('profile', JSON.stringify(profile));
       Alert.alert('Profile updated!');
-      navigation.navigate('Suggestions', { profile }); // Pass profile if needed
+      navigation.navigate('Suggestions', { profile });
     } catch (err) {
       console.error('Failed to save profile:', err);
       Alert.alert('Failed to save profile. Please try again.');
@@ -77,7 +81,7 @@ export default function ProfileForm({ navigation }) {
           placeholder="Name"
           style={styles.input}
           value={profile.name}
-          onChangeText={(text) => setProfile({ ...profile, name: text })}
+          onChangeText={(text) => handleChange('name', text)}
           autoCapitalize="words"
           returnKeyType="done"
           accessibilityLabel="Name input"
@@ -86,8 +90,8 @@ export default function ProfileForm({ navigation }) {
           placeholder="Age"
           style={styles.input}
           keyboardType="numeric"
-          value={profile.age?.toString()}
-          onChangeText={(text) => setProfile({ ...profile, age: text })}
+          value={profile.age}
+          onChangeText={(text) => handleChange('age', text)}
           returnKeyType="done"
           accessibilityLabel="Age input"
         />
@@ -95,8 +99,8 @@ export default function ProfileForm({ navigation }) {
           placeholder="Height (in inches)"
           style={styles.input}
           keyboardType="numeric"
-          value={profile.height?.toString()}
-          onChangeText={(text) => setProfile({ ...profile, height: text })}
+          value={profile.height}
+          onChangeText={(text) => handleChange('height', text)}
           returnKeyType="done"
           accessibilityLabel="Height input"
         />
@@ -104,19 +108,19 @@ export default function ProfileForm({ navigation }) {
           placeholder="Weight (lbs)"
           style={styles.input}
           keyboardType="numeric"
-          value={profile.weight?.toString()}
-          onChangeText={(text) => setProfile({ ...profile, weight: text })}
+          value={profile.weight}
+          onChangeText={(text) => handleChange('weight', text)}
           returnKeyType="done"
           accessibilityLabel="Weight input"
         />
 
         <Text style={styles.label}>Fitness Level:</Text>
-        {fitnessLevels.map((level, index) => (
+        {fitnessLevels.map((level) => (
           <Button
-            key={index}
+            key={level}
             title={level}
             color={profile.fitnessLevel === level ? '#007aff' : '#ccc'}
-            onPress={() => setProfile({ ...profile, fitnessLevel: level })}
+            onPress={() => handleChange('fitnessLevel', level)}
             accessibilityLabel={`Select fitness level ${level}`}
           />
         ))}
@@ -124,7 +128,7 @@ export default function ProfileForm({ navigation }) {
         <View style={{ marginTop: 30 }}>
           <Button
             title="Save Changes"
-            onPress={saveProfile}
+            onPress={validateAndSave}
             accessibilityLabel="Save profile changes"
           />
         </View>
