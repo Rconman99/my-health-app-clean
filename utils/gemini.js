@@ -1,7 +1,7 @@
 // utils/gemini.js
 // Gemini AI Request Handler — securely connects to Google's Gemini API
 
-const GEMINI_API_KEY = 'REDACTED_GEMINI_KEY'; // Production key
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY || ''; // Load from environment variable
 
 export async function askGemini(promptText) {
   const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
